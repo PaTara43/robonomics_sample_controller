@@ -58,14 +58,14 @@ class Robot(threading.Thread):
         rospy.loginfo("Arming...")
         self.arm.start()
         ## TODO: start moving when arm and mast are set up
-        time.sleep(25)
+        time.sleep(2)
         self.stop_publishing_arming = True
         rospy.loginfo("Armed")
         self.arm.join()
 
         rospy.loginfo("Moving")
         self.move.start()
-        time.sleep(60)
+        time.sleep(2)
         self.stop_publishing_moving = True
         rospy.loginfo("Stopped moving")
         self.move.join()
@@ -78,15 +78,15 @@ class Robot(threading.Thread):
         rospy.loginfo("Pushing states to file")
 
         try:
-            with open('file_states.txt', 'w') as f:
-                for item in self.state:
+            f = open(dirname + '/file_states.txt', 'w')
+            for item in self.state:
                     f.write("%s\n" % item)
         finally:
             f.close()
 
         rospy.loginfo("Pushing file to IPFS")
         client = ipfshttpclient.connect()
-        res = client.add(dirname + 'file_states.txt')
+        res = client.add(dirname + '/file_states.txt')
         rospy.loginfo("Pushed, the IPFS hash is " + res.values()[0].encode('utf8'))
 
         rospy.loginfo("Publishing IPFS hash to chain")
