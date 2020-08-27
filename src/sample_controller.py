@@ -58,14 +58,14 @@ class Robot(threading.Thread):
         rospy.loginfo("Arming...")
         self.arm.start()
         ## TODO: start moving when arm and mast are set up
-        time.sleep(2)
+        time.sleep(25)
         self.stop_publishing_arming = True
         rospy.loginfo("Armed")
         self.arm.join()
 
         rospy.loginfo("Moving")
         self.move.start()
-        time.sleep(2)
+        time.sleep(60)
         self.stop_publishing_moving = True
         rospy.loginfo("Stopped moving")
         self.move.join()
