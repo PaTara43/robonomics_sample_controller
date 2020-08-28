@@ -119,7 +119,7 @@ rosrun robonomics_sample_controller sample_controller.py
 ```
 ![Running controller](https://github.com/PaTara43/media/blob/master/Screenshot%20from%202020-08-27%2018-46-30.png?raw=true "Running controller")
 
-Now you can send a transaction triggering the Rover to start moving and collecting data. To do so, you should use the Robonomics IO subcommand of robonomics binary file:
+Now you can send a transaction triggering the Rover to start moving and collecting data. To do so, you should use the [Robonomics](https://wiki.robonomics.network/docs/rio-overview/) IO subcommand of robonomics binary file:
 ```shell
 echo "ON" | ./robonomics io write launch -r <CURIOSITY ADDRESS> -s <EMPLOYER’S KEY>
 ```
