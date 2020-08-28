@@ -5,12 +5,12 @@
 Requirements:
 ROS Melodic + Gazebo + RViz (installation manual here)
 extra packages:
-$ sudo apt-get install ros-melodic-gazebo-ros-control 
-$ sudo apt-get install ros-melodic-effort-controllers
-$ sudo apt-get install ros-melodic-joint-state-controller
+	$ sudo apt-get install ros-melodic-gazebo-ros-control 
+	$ sudo apt-get install ros-melodic-effort-controllers
+	$ sudo apt-get install ros-melodic-joint-state-controller
 IPFS 0.4.22 (download from here and install)
 ipfshttpclient:
-$ pip install ipfshttpclient
+	$ pip install ipfshttpclient
 Robonomics node (binary file) (download latest release here)
 IPFS browser extension (not necessary)
 ```
@@ -21,22 +21,13 @@ IPFS browser extension (not necessary)
 1. **Set up a simulation**
 
 Download Curiosity rover package:
-
-
+```
     $ mkdir -p robonomics_ws/src
-
-
     $ cd robomonics_ws/src
-
-
     $ git clone [https://bitbucket.org/theconstructcore/curiosity_mars_rover/src/master/](https://bitbucket.org/theconstructcore/curiosity_mars_rover/src/master/)
-
-
     $ cd ..
-
-
     $ catkin build
-
+```    
 We need to adjust starting conditions to make our rover spawn smoothly:
 
 
@@ -67,10 +58,6 @@ Reboot console and launch the simulation:
     $ roslaunch curiosity_mars_rover_description main_real_mars.launch
 
 
-
-<p id="gdcalert1" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image1.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert2">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/image1.png "image_tooltip")
 
 
@@ -82,23 +69,14 @@ It can be closed for a while
 
 
 1. To download a controller package for Rover type in terminal:
-
+```
     $ cd ~/robonomics_ws/src
-
-
     $ mkdir robonomics_sample_controller
-
-
     $ cd robonomics_sample_controller
-
-
     $ git clone [https://github.com/PaTara43/robonomics_sample_controller](https://github.com/PaTara43/robonomics_sample_controller)
-
-
     $ cd ../..
-
-
     $ catkin build
+```
 
 
     **3. Manage accounts in DAPP**
@@ -112,22 +90,10 @@ It can be closed for a while
 Important! After each launch it's necessary to remove a directory db in /home/$USER/.local/share/robonomics/chains/dev/
 ```
 
-
-
-    
-
-<p id="gdcalert2" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image2.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert3">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/image2.png "image_tooltip")
 
 
 2. Go to [https://parachain.robonomics.network](https://parachain.robonomics.network) and switch to local node 
-
-
-
-<p id="gdcalert3" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image3.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert4">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
 
 ![alt_text](images/image3.png "image_tooltip")
 
@@ -144,17 +110,7 @@ Important! Copy each account key and address (to copy address click on its icon)
 
 	Transfer some money (units) to these accounts
 
-
-
-<p id="gdcalert4" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image4.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert5">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/image4.png "image_tooltip")
-
-
-
-
-<p id="gdcalert5" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image5.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert6">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
 
 
 ![alt_text](images/image5.png "image_tooltip")
@@ -189,12 +145,6 @@ Wait till it stays still
 
     $ roslaunch curiosity_mars_rover_description main_real_mars.launch
 
-
-
-
-<p id="gdcalert6" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image6.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert7">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/image6.png "image_tooltip")
 
 
@@ -209,17 +159,9 @@ Wait till it stays still
 
 5. You should see the following:	
 
-<p id="gdcalert7" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image7.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert8">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/image7.png "image_tooltip")
 
 6. And the robot should start moving. Later, when the job is done:
-
-    
-
-<p id="gdcalert8" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image8.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert9">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
 
 ![alt_text](images/image8.png "image_tooltip")
 
@@ -227,27 +169,14 @@ Wait till it stays still
 
     On the Robonomics portal go to Developer -> Chain state and add a CURIOSITY datalog using “+” button with selected “datalog” as state query: 
 
-<p id="gdcalert9" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image9.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert10">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/image9.png "image_tooltip")
 
 
 7. Now the IPFS hash of the telemetry is saved in the blockchain. To see the data simply copy the hash and insert it in IPFS Companion:
 
-    
-
-<p id="gdcalert10" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image10.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert11">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
 ![alt_text](images/image10.png "image_tooltip")
 
 
 8. Click Explore -> View on Gateway and voila!
-
-    
-
-<p id="gdcalert11" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image11.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert12">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
 
 ![alt_text](images/image11.png "image_tooltip")
