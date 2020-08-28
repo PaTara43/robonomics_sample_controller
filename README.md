@@ -1,6 +1,6 @@
-#HOWTO: Robonomics demo with Curiosity Rover moving after transaction and storing data in blockchain
+# HOWTO: Robonomics demo with Curiosity Rover moving after transaction and storing data in blockchain
 
-###Requirements:
+### Requirements:
 - ROS Melodic + Gazebo + RViz (installation manual [here](http://wiki.ros.org/melodic/Installation))
 - extra packages:
 ```shell
