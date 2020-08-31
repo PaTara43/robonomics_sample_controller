@@ -4,14 +4,12 @@ Sample of how it works is available on YT: https://youtu.be/pl3eIEC_T2o
 - ROS Melodic + Gazebo + RViz (installation manual [here](http://wiki.ros.org/melodic/Installation))
 - extra packages:
 ```shell
-sudo apt-get install ros-melodic-gazebo-ros-control 
-sudo apt-get install ros-melodic-effort-controllers
-sudo apt-get install ros-melodic-joint-state-controller
+sudo apt-get install ros-melodic-gazebo-ros-control ros-melodic-effort-controllers ros-melodic-joint-state-controller
 ```
 - IPFS 0.4.22 (download from [here](https://dist.ipfs.io/go-ipfs/v0.4.22/go-ipfs_v0.4.22_linux-386.tar.gz) and install)
 - ipfshttpclient:
 ```shell
-$ pip install ipfshttpclient
+pip install ipfshttpclient
 ```
 - Robonomics node (binary file) (download latest release [here](https://github.com/airalab/robonomics/releases))
 - IPFS browser extension (not necessary)
@@ -39,13 +37,13 @@ We need to adjust starting conditions to make our rover spawn smoothly:
 `<arg name="paused" default="false"/>`
 
 Dont forget to add source command to `~/.bashrc`
-`source /home/patara/robonomics_ws/devel/setup.bash`
+`source /home/$USER/robonomics_ws/devel/setup.bash`
 
 
 - Reboot console and launch the simulation:
 
 ```shell
-$ roslaunch curiosity_mars_rover_description main_real_mars.launch
+roslaunch curiosity_mars_rover_description main_real_mars.launch
 ```
 ![Curiosity](https://github.com/PaTara43/media/blob/master/Screenshot%20from%202020-08-27%2017-22-28.png?raw=true "Curiosity")
 
@@ -69,13 +67,13 @@ catkin build
 ### 3. Manage accounts in DAPP
 Since we are testing, let us create a local robonomics network with robonomics binary file:
 ```shell
-$ ./robonomics --dev --rpc-cors all
+./robonomics --dev --rpc-cors all
 ```
 
 
-**Important!** After each launch it is necessary to remove a directory `db` in
+**Important!** Before next launches it is necessary to remove a directory `db` with
 
-`/home/$USER/.local/share/robonomics/chains/dev/`
+`rm -rf /home/$USER/.local/share/robonomics/chains/dev/db`
 
 
 
@@ -87,7 +85,7 @@ Go to https://parachain.robonomics.network and switch to local node
 
 Go to Accounts and create **CURIOSITY** and **EMPLOYER** accounts (**NOT_CURIOSITY** is **not** necessary)
 
-**Important**! Copy each account key and address (to copy address click on its icon)
+**Important**! Copy each account's key and address (to copy address click on account's icon)
 Transfer some money (units) to these accounts
 
 ![Add Account](https://github.com/PaTara43/media/blob/master/Screenshot%20from%202020-08-27%2018-27-47.png?raw=true "Add Account")
@@ -103,7 +101,7 @@ Add these addresses and path to robonomics folder to file `config.config` in `ro
 Up to now the **only thing running** should be the robonomics local node
 In a separate terminal launch IPFS:
 ```shell
-ifps init **(you only need to do this once)**
+ifps init #you only need to do this once
 ipfs daemon
 ```
 
@@ -123,7 +121,7 @@ Now you can send a transaction triggering the Rover to start moving and collecti
 ```shell
 echo "ON" | ./robonomics io write launch -r <CURIOSITY ADDRESS> -s <EMPLOYER’S KEY>
 ```
-Where `<CURIOSITY ADDRESS>`  and `<EMPLOYER’S KEY>` are replaced with  previously saved strings respectively
+Where `<CURIOSITY ADDRESS>`  and `<EMPLOYER’S KEY>` are replaced with  previously saved strings accordingly
 
 You should see the following:
 
