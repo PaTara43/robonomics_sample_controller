@@ -20,7 +20,7 @@ pip install ipfshttpclient
 Download Curiosity rover package:
 ```shell
 mkdir -p robonomics_ws/src
-cd robomonics_ws/src
+cd robonomics_ws/src
 git clone https://bitbucket.org/theconstructcore/curiosity_mars_rover/src/master/
 cd ..
 catkin build
