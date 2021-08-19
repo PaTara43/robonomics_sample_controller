@@ -1,0 +1,2 @@
+substrate_interface==0.13.9
+ipfshttpclient==0.7.0

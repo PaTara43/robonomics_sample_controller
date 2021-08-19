@@ -1,18 +1,13 @@
 # HOWTO: Robonomics demo with Curiosity Rover moving after transaction and storing data in blockchain
-Sample of how it works is available on YT: https://youtu.be/pl3eIEC_T2o
+Sample of how it works is available on YT: 
 ### Requirements:
 - ROS Melodic + Gazebo + RViz (installation manual [here](http://wiki.ros.org/melodic/Installation))
 - extra packages:
 ```shell
 sudo apt-get install ros-melodic-gazebo-ros-control ros-melodic-effort-controllers ros-melodic-joint-state-controller
 ```
-- IPFS 0.4.22 (download from [here](https://dist.ipfs.io/go-ipfs/v0.4.22/go-ipfs_v0.4.22_linux-386.tar.gz) and install)
-- ipfshttpclient:
-```shell
-pip install ipfshttpclient
-```
-- Robonomics node (binary file) (download latest release [here](https://github.com/airalab/robonomics/releases))
-- IPFS browser extension (not necessary)
+- IPFS up to [0.6.0](https://dist.ipfs.io/go-ipfs/v0.6.0/go-ipfs_v0.6.0_linux-386.tar.gz)
+- Robonomics node (binary file) (download latest release [here](https://github.com/airalab/robonomics/releases). This tutorial tested fine on v1.1)
 
 ------------
 
@@ -28,15 +23,15 @@ catkin build
 We need to adjust starting conditions to make our rover spawn smoothly:
 - Go to
 
-`/robonomics_ws/src/master/curiosity_mars_rover_description/worlds` and change line 14 of the file` mars_curiosity.world` to 
-`<pose>0 0 9 0 0 0</pose>`
+`src/master/curiosity_mars_rover_description/worlds` and change line 14 of the file` mars_curiosity.world` to 
+`<pose>0 0 8 0 0 0</pose>`
 
 - Go to
 
-`/robonomics_ws/src/master/curiosity_mars_rover_description/launch` and change line 4 of the file `mars_curiosity_world.launch` to 
+`src/master/curiosity_mars_rover_description/launch` and change line 4 of the file `mars_curiosity_world.launch` to 
 `<arg name="paused" default="false"/>`
 
-Dont forget to add source command to `~/.bashrc`
+Don't forget to add source command to `~/.bashrc`
 `source /home/$USER/robonomics_ws/devel/setup.bash`
 
 
@@ -45,21 +40,22 @@ Dont forget to add source command to `~/.bashrc`
 ```shell
 roslaunch curiosity_mars_rover_description main_real_mars.launch
 ```
-![Curiosity](https://github.com/PaTara43/media/blob/master/Screenshot%20from%202020-08-27%2017-22-28.png?raw=true "Curiosity")
+*pic of the rover*
 
-It can be closed for a while
+Note: if the image is dark, e.g. shadowed, change `Camera` to `Orthorgraphic` in Gazebo toolbar.
+The simulation can be closed for a while.
 
 ------------
 
-### 2. Download controller package
+### 2. Download Robonomics controller package
 To download a controller package for Rover type in terminal:
 ```shell
 cd ~/robonomics_ws/src
-mkdir robonomics_sample_controller
-cd robonomics_sample_controller
 git clone https://github.com/PaTara43/robonomics_sample_controller
-cd ../..
-catkin build
+cd robonomics_sample_controller
+pip3 install -r requirements.txt
+cd ..
+catkin build -DPYTHON_EXECUTABLE=/usr/bin/python3 # The controller supports python3
 ```
 
 ------------
@@ -67,45 +63,35 @@ catkin build
 ### 3. Manage accounts in DAPP
 Since we are testing, let us create a local robonomics network with robonomics binary file:
 ```shell
-./robonomics --dev --rpc-cors all
+./robonomics --dev --tmp
 ```
 
-
-**Important!** Before next launches it is necessary to remove a directory `db` with
-
-`rm -rf /home/$USER/.local/share/robonomics/chains/dev/db`
-
-
-
-![Robonomics node](https://github.com/PaTara43/media/blob/master/Screenshot%20from%202020-08-27%2018-21-52.png?raw=true "Robonomics node")
+*pic of running node*
 
 Go to https://parachain.robonomics.network and switch to local node 
 
-![Local node](https://wiki.robonomics.network/assets/static/robonomics-dapp-connect-local.09c0af9.8bb6632a8836118ad6b6049d0852c1eb.jpg "Local node")
+*pic of local node*
 
-Go to Accounts and create **CURIOSITY** and **EMPLOYER** accounts (**NOT_CURIOSITY** is **not** necessary)
+Go to Accounts and create **CURIOSITY** and **EMPLOYER** accounts.
 
-**Important**! Copy each account's key and address (to copy address click on account's icon)
-Transfer some money (units) to these accounts
+**Important**! Copy each account's address (to copy address click on account's icon) and Curiosity's account **mnemonic seed** (obtained while creating the account)
+Transfer some money (units) to these accounts. You can read more about accounts in Robonomics [here](https://wiki.robonomics.network/docs/en/create-account-in-dapp/)
 
-![Add Account](https://github.com/PaTara43/media/blob/master/Screenshot%20from%202020-08-27%2018-27-47.png?raw=true "Add Account")
+*pic of creating an account*
 
-![Balances](https://github.com/PaTara43/media/blob/master/Screenshot%20from%202020-08-27%2018-33-14.png?raw=true "Balances")
-
-Add these addresses and path to robonomics folder to file `config.config` in `robonomics_ws/src/robonomics_sample_controller/src`
+Add these addresses, seed and node address (defaults to `ws://127.0.0.1:9944` for developer node) in `config.config` in `robonomics_ws/src/robonomics_sample_controller/src`. No quotes.
 
 ------------
 
 
 ### 4. Start Robonomics
-Up to now the **only thing running** should be the robonomics local node
 In a separate terminal launch IPFS:
 ```shell
-ifps init #you only need to do this once
+ifps init #you only need to do this once per IPFS installation
 ipfs daemon
 ```
 
-In another separate terminal launch Curiosity simulation:
+In another separate terminal launch Curiosity simulation if it's not live:
 ```shell
 roslaunch curiosity_mars_rover_description main_real_mars.launch
 ```
@@ -115,32 +101,24 @@ In another terminal launch the controller:
 ```shell
 rosrun robonomics_sample_controller sample_controller.py
 ```
-![Running controller](https://github.com/PaTara43/media/blob/master/Screenshot%20from%202020-08-27%2018-46-30.png?raw=true "Running controller")
+*pic of controller waiting for transaction*
 
-Now you can send a transaction triggering the Rover to start moving and collecting data. To do so, you should use the [Robonomics IO](https://wiki.robonomics.network/docs/rio-overview/) subcommand of robonomics binary file:
-```shell
-echo "ON" | ./robonomics io write launch -r <CURIOSITY ADDRESS> -s <EMPLOYER’S KEY>
-```
-Where `<CURIOSITY ADDRESS>`  and `<EMPLOYER’S KEY>` are replaced with  previously saved strings accordingly
+Now you can send a transaction triggering the Rover to start moving and collecting data. To do so, you can use the same portal https://parachain.robonomics.network.
+Go to `Developer->Extrinsics` and select Curiosity's employer account, `launch` extrinsic, Curiosity's account as a target account and `yes` as a parameter.
+Submit the extrinsic.
 
-You should see the following:
+The robot should start moving. It won't accept commands from other accounts neither commands with `no` parameter. The rover will move around and collect data for about a minute.
+Later, when the job is done:
 
-![Arming](https://github.com/PaTara43/media/blob/master/Screenshot%20from%202020-08-27%2018-58-36.png?raw=true "Arming")
+*pic of logs a.k.a. job done*
 
-And the robot should start moving. Later, when the job is done:
+On the Robonomics portal go to `Developer -> Chain state` and obtain a `CURIOSITY` datalog using “+” button with selected `datalog -> RingBufferItem` as query: 
 
-![Done](https://github.com/PaTara43/media/blob/master/Screenshot%20from%202020-08-27%2019-10-43.png?raw=true "Done")
+*pic of RingBufferItem*
 
-On the Robonomics portal go to Developer -> Chain state and add a CURIOSITY datalog using “+” button with selected “datalog” as state query: 
+Now the IPFS hash of the telemetry is saved in the blockchain. To see the data simply copy the hash and find it on a gateway:
 
-![Datalog](https://github.com/PaTara43/media/blob/master/Screenshot%20from%202020-08-27%2019-16-49.png?raw=true "Datalog")
+*Pic of data on ipfs*
 
-Now the IPFS hash of the telemetry is saved in the blockchain. To see the data simply copy the hash and insert it in IPFS Companion:
-
-![IPFS](https://github.com/PaTara43/media/blob/master/Screenshot%20from%202020-08-27%2019-18-58.png?raw=true "IPFS")
-
-Click Explore -> View on Gateway and voila!
-
-![Voila](https://github.com/PaTara43/media/blob/master/Screenshot%20from%202020-08-27%2019-20-01.png?raw=true "Voila")
-
+This telemetry is kept in a decentralized storage, and it's hash is stored in a blockchain!
 
