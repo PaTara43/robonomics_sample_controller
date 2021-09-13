@@ -125,7 +125,7 @@ def write_datalog(substrate, seed: str, data: str) -> str or None:
         rospy.loginfo("Submitting extrinsic for recording datalog")
         receipt = substrate.submit_extrinsic(extrinsic, wait_for_inclusion=True)
         rospy.loginfo(f"Extrinsic {receipt.extrinsic_hash} for recording datalog sent and included in block"
-                      f" {receipt.extrinsic_hash}")
+                      f" {receipt.block_hash}")
         return receipt.extrinsic_hash
     except Exception as e:
         rospy.logerr(f"Failed to submit extrinsic for recording datalog: {e}")
