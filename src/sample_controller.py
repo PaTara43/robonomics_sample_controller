@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
-import configparser
 import ipfshttpclient
 import rospy
 import threading
 import typing as tp
+import yaml
 
 from geometry_msgs.msg import Twist
 from control_msgs.msg import JointControllerState
@@ -16,6 +16,30 @@ from time import sleep
 '''
 Robonomics functions and class for working with substrate
 '''
+
+
+def read_yaml_file(yaml_path: str) -> tp.Dict or None:
+    """
+    Read a yaml file
+    Parameters
+    ----------
+    yaml_path : path to yaml file
+    Returns
+    -------
+    yaml file contains as dictionary
+    """
+    rospy.loginfo(f"Reading .yaml file {yaml_path}")
+    if not path.exists(yaml_path):
+        rospy.logerr(f"{yaml_path} not found")
+        return None
+
+    with open(yaml_path, "r") as file:
+        try:
+            dictionary = yaml.safe_load(file)
+            return dictionary
+        except Exception as Err:
+            rospy.logerr(f"Error loading {yaml_path}: {Err}")
+            return None
 
 
 def substrate_connection(url: str) -> tp.Any:
@@ -224,15 +248,12 @@ class Robot:
 
         rospy.loginfo("Parsing Config")
         dirname = path.dirname(__file__) + '/../'
-        config_parser = configparser.RawConfigParser()
-        config_file_path = dirname + 'src/config.config'
-        config_parser.read(config_file_path)
+        config = read_yaml_file(dirname + "src/config.yaml")
 
-        self.curiosity_address = config_parser.get('keys_and_addresses', 'CURIOSITY_ADDRESS')
-        self.curiosity_seed = config_parser.get('keys_and_addresses', 'CURIOSITY_SEED')
-        self.employer_address = config_parser.get('keys_and_addresses', 'EMPLOYER_ADDRESS')
-        self.node_address = config_parser.get('keys_and_addresses', 'NODE_ADDRESS')
-
+        self.curiosity_address = config['curiosity_address']
+        self.curiosity_seed = config['curiosity_seed']
+        self.employer_address = config['employer_address']
+        self.node_address = config['node_address']
         rospy.loginfo("Parsing completed")
 
         rospy.loginfo('Initiating substrate connection for launch tracking and datalogs writing')

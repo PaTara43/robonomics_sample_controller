@@ -4,7 +4,8 @@ Sample of how it works is available on YT: https://www.youtube.com/watch?v=6BSOy
 - ROS Melodic + Gazebo + RViz (installation manual [here](http://wiki.ros.org/melodic/Installation))
 - extra packages:
 ```shell
-sudo apt-get install ros-melodic-gazebo-ros-control ros-melodic-effort-controllers ros-melodic-joint-state-controller
+sudo apt-get install ros-melodic-gazebo-ros-control ros-melodic-effort-controllers ros-melodic-joint-state-controller\
+ python3-catkin-pkg python3-catkin-pkg-modules python3-rospkg-modules
 ```
 - IPFS up to [0.6.0](https://dist.ipfs.io/go-ipfs/v0.6.0/go-ipfs_v0.6.0_linux-386.tar.gz)
 - Robonomics node (binary file) (download latest release [here](https://github.com/airalab/robonomics/releases). This tutorial tested fine on v1.1)
@@ -17,8 +18,6 @@ Download Curiosity rover package:
 mkdir -p robonomics_ws/src
 cd robonomics_ws/src
 git clone https://bitbucket.org/theconstructcore/curiosity_mars_rover/src/master/
-cd ..
-catkin build
 ```
 We need to adjust starting conditions to make our rover spawn smoothly:
 - Go to
@@ -38,6 +37,8 @@ Don't forget to add source command to `~/.bashrc`
 - Reboot console and launch the simulation:
 
 ```shell
+cd ..
+catkin build
 roslaunch curiosity_mars_rover_description main_real_mars.launch
 ```
 ![Mars rover](./media/rover.png?raw=true "Mars rover")

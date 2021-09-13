@@ -1,0 +1,4 @@
+curiosity_address: ""  # robot address in ss58format=32
+curiosity_seed: "" # needed to sign datalog messages
+employer_address: "" # the one, robot will wait for launch transaction from
+node_address: "ws://127.0.0.1:9944" # default for local node

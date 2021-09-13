@@ -1,2 +1,4 @@
 substrate_interface==0.13.9
 ipfshttpclient==0.7.0
+rospy~=1.14.11
+PyYAML~=5.4.1
