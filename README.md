@@ -31,8 +31,10 @@ We need to adjust starting conditions to make our rover spawn smoothly:
 `<arg name="paused" default="false"/>`
 
 Don't forget to add source command to `~/.bashrc`
-`source /home/$USER/robonomics_ws/devel/setup.bash`
-
+```
+echo "source /home/$USER/robonomics_ws/devel/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+```
 
 - Reboot console and launch the simulation:
 
